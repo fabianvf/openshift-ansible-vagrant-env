@@ -1,0 +1,30 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - debug: var=groups
+    - debug: var=hostvars
+
+- hosts: all
+  tasks:
+    - yum:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - PyYAML
+        - python-rhsm-certificates
+
+- import_playbook: /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
+- import_playbook: /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+
+- hosts: oo_first_master
+  gather_facts: false
+  tasks:
+    - name: Grant cluster-admin permissions to admin user
+      command: docker exec origin-master-api oc adm policy add-cluster-role-to-user cluster-admin admin --config /etc/origin/master/admin.kubeconfig
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: oc login
+      command: oc login -u admin -p admin --insecure-skip-tls-verify=true https://test-origin.example.com:8443
