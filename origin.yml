@@ -4,17 +4,8 @@
     - debug: var=groups
     - debug: var=hostvars
 
-- hosts: all
-  tasks:
-    - yum:
-        name: '{{ item }}'
-        state: present
-      with_items:
-        - PyYAML
-        - python-rhsm-certificates
-
-- import_playbook: /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
-- import_playbook: /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+- import_playbook: '{{ openshift_ansible_dir }}/playbooks/prerequisites.yml'
+- import_playbook: '{{ openshift_ansible_dir }}/playbooks/deploy_cluster.yml'
 
 - hosts: oo_first_master
   gather_facts: false
