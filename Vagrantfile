@@ -51,6 +51,7 @@ Vagrant.configure("2") do |config|
 
       node.vm.provision :file, :source => "~/.ssh/id_rsa.pub", :destination => "/tmp/key"
       node.vm.provision :shell, :inline => <<-EOF
+        setenforce 0
         cat /tmp/key >> /home/vagrant/.ssh/authorized_keys
         mkdir -p /root/.ssh
         cp /home/vagrant/.ssh/authorized_keys /root/.ssh/authorized_keys
@@ -71,6 +72,7 @@ Vagrant.configure("2") do |config|
 
     master.vm.provision :file, :source => "~/.ssh/id_rsa.pub", :destination => "/tmp/key"
     master.vm.provision :shell, :inline => <<-EOF
+      setenforce 0
       cat /tmp/key >> /home/vagrant/.ssh/authorized_keys
       mkdir -p /root/.ssh
       cp /home/vagrant/.ssh/authorized_keys /root/.ssh/authorized_keys
