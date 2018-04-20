@@ -95,7 +95,7 @@ Vagrant.configure("2") do |config|
         # "nfs" => ["default"],
         "OSEv3" => ["master.example.com"] + nodes,
         "OSEv3:vars" => {
-          "openshift_image_tag": "v3.9.0",
+          "openshift_image_tag": ENV["IMAGE_TAG"]||"v3.9.0",
           "openshift_pkg_version": "",
           "ansible_python_interpreter" => "/usr/bin/python3",
           "openshift_docker_additional_registries" => 'registry.access.redhat.com,registry.fedoraproject.org',
