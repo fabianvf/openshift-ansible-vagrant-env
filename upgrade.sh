@@ -34,6 +34,7 @@ cat <<-EOF > upgrade-39.yml
   tasks:
     - name: wait for host to come up
       wait_for_connection:
+- import_playbook: ${TMPDIR}/openshift-ansible/playbooks/prerequisites.yml
 - import_playbook: ${TMPDIR}/openshift-ansible/playbooks/byo/openshift-cluster/upgrades/v3_9/upgrade.yml
 EOF
 

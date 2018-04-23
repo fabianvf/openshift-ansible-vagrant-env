@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
       ansible.groups = {
         "masters" => ["master.example.com"],
         "etcd" => ["master.example.com"],
-        "nodes" => nodes,
+        "nodes" => ["master.example.com"] + nodes,
         # "nfs" => ["default"],
         "OSEv3" => ["master.example.com"] + nodes,
         "OSEv3:vars" => {
